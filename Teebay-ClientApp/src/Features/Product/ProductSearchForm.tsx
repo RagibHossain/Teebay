@@ -1,11 +1,31 @@
 import React from 'react'
+import { Select } from 'semantic-ui-react'
 import MyButton from '../Common/MyButton'
+import MyInput from '../Common/MyInput'
 
 const ProductSearchForm = () => {
     const fieldStyle = {
         display: "flex",
-        margin: "20px"
+        margin: "20px",
+        flexDirection:"column"
     }
+    const categories = [
+        {
+            key:1,
+            text:"Primary",
+            value:1
+        },
+        {
+            key:2,
+            text:"Secondary",
+            value:3
+        },
+        {
+            key:3,
+            text:"Thirdary",
+            value:3
+        }
+    ];
     return (
         <div>
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -13,22 +33,19 @@ const ProductSearchForm = () => {
                 </div>
                 <div>
                     <form>
-                        <div style={fieldStyle}>
-
-                            <label>Title</label>
-                            <input style={{ height: "35px" }} type="text" />
-                        </div>
+                    <MyInput type="text" labelText="Title" height="40px" widthPercentage="70%" />
                         <div style={fieldStyle}>
                             <label>Categories</label>
-                            <select style={{ height: "35px", width: "" }}>
-                            </select>
+                            <Select placeholder="Select Categories" options={categories}  style={{ height: "35px", width: "60px" }}>
+                                
+                            </Select>
                         </div>
                         <div style={{ marginLeft: "20px",marginTop:"40px"}} >
-                            <input style={{marginRight:"5px"}} type="radio" />
+                            <input style={{marginRight:"5px"}} name="type" type="radio" />
                             <label>Buy</label>
                         </div>
                         <div  style={{ marginLeft: "20px",marginTop:"40px" }}>
-                            <input style={{marginRight:"5px"}} type="radio" />
+                            <input style={{marginRight:"5px"}} name="type" type="radio" />
                             <label>Rent</label>
                         </div>
                          <div style={{marginTop:"80px",display:"flex",justifyContent:"center"}}>

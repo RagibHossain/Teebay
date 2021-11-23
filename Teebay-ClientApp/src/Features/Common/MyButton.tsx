@@ -7,7 +7,7 @@ interface IProps{
 const MyButton : React.FC<IProps> = ({content,floating}) => {
     return (
         <div>
-            <Button floated={floating} style={{ backgroundColor: "#6558F5",color:"white" }} fluid size='large'>
+            <Button floated={floating} style={{ backgroundColor: "#6558F5",color:"white" }}  size='large'>
                 {content}
             </Button>
         </div>

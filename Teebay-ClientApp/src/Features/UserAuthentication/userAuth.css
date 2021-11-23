@@ -1,0 +1,19 @@
+.input{
+    display: flex;
+    flex-direction: column;
+}
+.inputRow{
+    display: flex;
+    justify-content: space-between;
+}
+.inputStyle{
+    height: "40px";
+    width: "100%";
+    margin: "10px 0px 10px 0px";
+    border-radius: "2%";
+    padding: "5px";
+}
+.errorStyle{
+    color: red;
+    font-weight: bolder;
+}
