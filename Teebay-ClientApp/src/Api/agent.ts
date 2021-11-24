@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { IProduct } from "../Models/Product";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/teebay/";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 // axios.defaults.baseURL = "https://localhost:5001/api";
 
 // axios.interceptors.request.use(
@@ -66,7 +66,8 @@ const requests = {
 // };
 
 const Products = {
-  productList: (): Promise<IProduct[]> => requests.get("/")
+  productList: (): Promise<IProduct[]> => requests.get("/"),
+  addProduct : (product : IProduct) => requests.post("/create",product)
 };
 
 const agent = { Products };

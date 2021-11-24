@@ -4,22 +4,47 @@ import MyButton from '../Common/MyButton'
 import MyHeader from '../Common/MyHeader'
 import MyInput from '../Common/MyInput'
 
+
+// ELECTRONICS
+// ○ FURNITURE
+// ○ HOME APPLIANCES
+// ○ SPORTING GOODS
+
+// ○ OUTDOOR
+// ○ TOYS
+
+
 const ProductForm = () => {
     const categories = [
         {
             key:1,
-            text:"Primary",
-            value:1
+            text:"ELECTRONICS",
+            value:"electronics"
         },
         {
             key:2,
-            text:"Secondary",
-            value:2
+            text:"FURNITURE",
+            value:"furniture"
         },
         {
             key:3,
-            text:"Thirdary",
-            value:3
+            text:"HOME APPLIANCES",
+            value:"home appliances"
+        },
+        {
+            key:3,
+            text:"SPORTING GOODS",
+            value:"sporting goods"
+        },
+        {
+            key:3,
+            text:"OUTDOOR",
+            value:"outdoor"
+        },
+        {
+            key:3,
+            text:"TOYS",
+            value:"toys"
         }
     ];
     const rateType = [
