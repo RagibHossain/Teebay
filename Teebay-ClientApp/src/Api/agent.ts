@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from "axios";
+import { createProductFormData } from "../Helper/formDataUtil";
 import { IProduct } from "../Models/Product";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/teebay/";
+axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 // axios.defaults.baseURL = "https://localhost:5001/api";
 
 // axios.interceptors.request.use(
@@ -64,9 +65,32 @@ const requests = {
 //   changePassword: (body: IChangePassword) =>
 //     requests.post("/user/changePassword", body),
 // };
+const form = {
+  productPostForm: (url: string, data: IProduct) => {
+    const formData = createProductFormData(data);
+    return axios
+      .post(url, formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then(responseBody);
+  },
+  productPutForm: (url: string, data: IProduct) => {
+    const formData = createProductFormData(data);
+    return axios
+      .put(url, formData, {
+        headers: { "Content-type": "multipart/form-data" },
+      })
+      .then(responseBody);
+  },
+
+};
 
 const Products = {
-  productList: (): Promise<IProduct[]> => requests.get("/")
+  productList: (): Promise<IProduct[]> => requests.get("/"),
+  productDetails : (pk : string):Promise<IProduct> => requests.get(`${pk}`),
+  addProduct : (product : IProduct) => form.productPostForm("create/",product),
+  updateProduct : (product : IProduct) => form.productPutForm(`update/${product.pk}/`,product),
+  deleteProduct : (pk : number) => requests.del(`delete/${pk}/`)
 };
 
 const agent = { Products };

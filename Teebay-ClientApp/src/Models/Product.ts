@@ -1,9 +1,15 @@
 export interface IProduct{
+    pk : number;
     title : string;
-    description :string;
+    description : string;
     price : number;
+    rentPrice : number;
     uploadedby:number;
-    sold : boolean;
-    rent : boolean;
     dateposted : Date;
+    status : string;
+    category: number[];
+}
+
+export interface ICategory{
+    name : string;
 }
