@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-# Create your models here.
- 
- 
+
 
 class Category(models.Model):
     name = models.CharField(max_length=60) 
@@ -25,3 +23,16 @@ class Product(models.Model):
     status = models.CharField(max_length=20,choices=options,default="unsold")
     dateposted = models.DateField(auto_now_add=True)
     category = models.ManyToManyField(Category)
+
+class BuyHistory(models.Model):
+    buyer = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    purchasedate=models.DateField(auto_now_add=True)
+
+class RentHistory(models.Model):
+    renter = models.ForeignKey(User,on_delete=models.CASCADE)
+    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    rentstart = models.DateTimeField(auto_now_add=True)
+    rentend = models.DateTimeField()
+
+

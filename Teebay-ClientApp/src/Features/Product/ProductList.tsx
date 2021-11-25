@@ -4,13 +4,11 @@ import { RootStoreContext } from '../../Stores/RootStore'
 import ItemCard from '../Common/ItemCard'
 
 const ProductList = () => {
-
-
     const store = useContext(RootStoreContext);
     const { products, getProducts } = store.productStore;
     useEffect(() => {
         if (products.length < 1) getProducts()
-    }, [getProducts])
+    }, [getProducts,products])
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
 
