@@ -1,12 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { Button } from 'semantic-ui-react'
+import { RootStoreContext } from '../../Stores/RootStore'
 
 const NavBar = () => {
     const spanStyle = {
         color:"wheat"
     }
     const history = useHistory();
+    const store = useContext(RootStoreContext);
+    const {logout} =store.userStore;
+    const logOut = () => {
+        logout();
+        setTimeout(() => {
+          history.push("/")
+        },1000)
+    }
     return (
         <div style={{width:"100%",padding:"20px",position:"fixed",top:"0",backgroundColor:"grey"}}>
             <div style={{display:"flex",justifyContent:"space-evenly"}}>
@@ -22,7 +31,7 @@ const NavBar = () => {
                <Link to="/browseproducts">
                <span style={spanStyle}>Browse Products</span> 
                </Link>
-               <Button onClick={() => history.push("/") }  content="Logout" color="red"/>
+               <Button onClick={() => logOut()}  content="Logout" color="red"/>
             </div>
        
         

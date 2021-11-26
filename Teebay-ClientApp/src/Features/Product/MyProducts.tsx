@@ -12,7 +12,7 @@ import ProductList from './ProductList'
 const MyProducts = () => {
     const history = useHistory();
     const store = useContext(RootStoreContext);
-    const { products, getProducts } = store.productStore;
+    const { myProducts, getProducts } = store.productStore;
 
     // useEffect(()=>{
     //   if(products.length < 1) getProducts();
@@ -20,7 +20,7 @@ const MyProducts = () => {
     return (
         <div>
             <Header textAlign="center" >My Products </Header>
-            <ProductList />
+            <ProductList remove={true} products={myProducts} />
             <div onClick={() => history.push("/addproduct")} style={{display:"flex",justifyContent:"center"}}>
                 <MyButton floating="right"  content="Add Product" />
             </div>

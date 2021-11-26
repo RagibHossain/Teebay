@@ -8,3 +8,4 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display=('title','description','status','uploadedby','dateposted')
 
     admin.site.register(models.Category)
+    admin.site.register(models.BuyHistory)

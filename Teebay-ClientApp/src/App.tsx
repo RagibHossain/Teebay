@@ -1,5 +1,5 @@
 import { observer } from 'mobx-react-lite'
-import { Fragment, useContext, useState } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { Route,Switch } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
 import './App.css'
@@ -18,11 +18,13 @@ import 'react-toastify/dist/ReactToastify.css';
 function App() {
   
   const rootStore = useContext(RootStoreContext);
-  const {loggedIn} = rootStore.userStore;
-
+  const {loggedIn,initUser} = rootStore.userStore;
+  useEffect(() => {
+   if(!loggedIn) initUser()
+  },[loggedIn,initUser])
   return (
     <div>
-       <NavBar /> 
+     {loggedIn && <NavBar /> }  
        <ToastContainer position="top-right"/>
        <Route exact path="/" component={Signin} />
       
