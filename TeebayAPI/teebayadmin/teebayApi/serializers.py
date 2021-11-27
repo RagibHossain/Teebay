@@ -8,6 +8,11 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields=["pk","firstname","lastname","email","password"]
+
+class LoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields=["email","password"]
 class UserNameSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -42,13 +47,16 @@ class BuySerializer(serializers.ModelSerializer):
         model = BuyHistory
         fields="__all__"
 
+class RentHistorySerializer(serializers.ModelSerializer):
+    renter = UserNameSerializer(read_only=True)
+    product = ProductSerializer(read_only=True)
+    class Meta:
+        model=RentHistory
+        fields=["pk","renter","product","rentstart","rentend"]
 
-# class RentHistorySerializer(serializers.ModelSerializer):
-#     renter = serializers.PrimaryKeyRelatedField(many=True,read_only=True)
-#     product = serializers.PrimaryKeyRelatedField(many=True,read_only=True)
-#     class Meta:
-#         model=RentHistory
-        
+class RentSerializer(serializers.ModelSerializer):
+   
+    class Meta:
+        model = RentHistory
+        fields="__all__"
 
-
-# Create your models here.

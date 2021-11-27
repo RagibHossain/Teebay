@@ -2,7 +2,7 @@
 import { observer } from 'mobx-react-lite';
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useHistory } from 'react-router-dom'
+import { Link, Redirect, useHistory } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 import { IUserLogin } from '../../Models/User';
@@ -17,19 +17,11 @@ const Signin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm<IUserLogin>();
     const onLogin = (user: IUserLogin) => {
         console.log(user);
-        signIn(user).then(() => {
-            setTimeout(() => {
-                if (!currentUser) {
-                    toast.error("Credentials Incorrect");
-                }
-                else {
-                   history.push("/products")
-                }
-            }, 1000);
-
-        });
+        signIn(user);
 
     }
+   
+    if(loggedIn) return ( <Redirect to='/products' />)
     const inputStyle = { height: "40px", width: "100%", margin: "10px 0px 10px 0px", borderRadius: "2%", padding: "5px" }
     
     return (

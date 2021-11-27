@@ -1,16 +1,17 @@
-import React, { useState } from 'react'
+import { observer } from 'mobx-react-lite'
+import React, { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useHistory } from 'react-router-dom'
 import { Select } from 'semantic-ui-react'
 import { IProductSearch } from '../../Models/Product'
+import { RootStoreContext } from '../../Stores/RootStore'
 import MyButton from '../Common/MyButton'
 import MyInput from '../Common/MyInput'
 
 const ProductSearchForm = () => {
     const fieldStyle = {
         display: "flex",
-        margin: "20px",
-        flexDirection:"column"
+        margin: "20px"
     }
     const categories = [
         {
@@ -47,9 +48,12 @@ const ProductSearchForm = () => {
     const {  handleSubmit, formState: { errors } } = useForm();
     const history = useHistory();
     const [param, setParam] = useState<IProductSearch>();
+    const store = useContext(RootStoreContext);
+    const {searchProducts} = store.productStore;
     const inputStyle = { height: "40px", width: "100%", margin: "10px 0px 10px 0px", borderRadius: "2%", padding: "5px" }
     const search = () => {
         console.log(param)
+        searchProducts(param!)
     }
     const handleChange = (item:React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = item.target;
@@ -59,6 +63,7 @@ const ProductSearchForm = () => {
     const handleSelect = ( item: React.SyntheticEvent<HTMLElement, Event>,data : any) => {
         setParam({ ...param!, categories: data.value })   
     }
+    
     return (
         <div>
             <div style={{ display: "flex", justifyContent: "center" }}>
@@ -66,36 +71,38 @@ const ProductSearchForm = () => {
                 </div>
                 <div>
                     <form onSubmit={handleSubmit(search)}>
-                    <input name="title"  onChange={(e) => handleChange(e)} type="text" style={inputStyle} />
+                    <input name="title"  onChange={(e) => handleChange(e)} type="text" placeholder="Title (optional)" style={inputStyle} />
                   
                    
-                        <div style={fieldStyle}>
-                            <label>Categories</label>
+                        <div >
+                           
                             <Select name="categories" onChange={(e,data) => handleSelect(e,data)} placeholder="Select Categories" options={categories}  style={{ height: "35px", width: "60px" }}>
                                 
                             </Select>
                         </div>
                         <div style={{ marginLeft: "20px",marginTop:"40px"}} >
-                            <input    onChange={() => {
-
-                            }} style={{marginRight:"5px"}} name="type" type="radio" />
+                            <input   onChange={(e) => handleChange(e)} style={{marginRight:"5px"}}  name="type" value="buy" type="radio" />
                             <label>Buy</label>
                         </div>
                         <div  style={{ marginLeft: "20px",marginTop:"40px" }}>
-                            <input style={{marginRight:"5px"}} name="type" type="radio" />
+                            <input style={{marginRight:"5px"}} name="type" onChange={(e) => handleChange(e)} value="rent" type="radio" />
                             <label>Rent</label>
                         </div>
                         <div className="inputRow">
+                  
+                        
                         <div className="input">
 
-                            <input onChange={(e) => handleChange(e)} type="text" name="startPrice"  style={inputStyle} />
+                            <input onChange={(e) => handleChange(e)} type="number" placeholder="Start Price" name="startPrice"  style={inputStyle} />
                          
                         </div>
                         <div className="input">
 
-                        <input  onChange={(e) => handleChange(e)} type="text" name="endPrice"   style={inputStyle} />
+                        <input  onChange={(e) => handleChange(e)} type="number" placeholder="End Price" name="endPrice"   style={inputStyle} />
                       
                         </div>
+
+
                     </div>
                          <div style={{marginTop:"80px",display:"flex",justifyContent:"center"}}>
                              <MyButton content="search" />
@@ -106,4 +113,4 @@ const ProductSearchForm = () => {
     )
 }
 
-export default ProductSearchForm
+export default observer(ProductSearchForm)

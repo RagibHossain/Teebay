@@ -7,10 +7,11 @@ interface IProps {
   action: Function;
   header: string;
   buttonText : string;
+  cancelText : string;
   btnColor : SemanticCOLORS;
 }
 
-const CommonModal: React.FC<IProps> = ({ trigger, action, header,buttonText,btnColor }) => {
+const CommonModal: React.FC<IProps> = ({ trigger, action, header,buttonText,btnColor,cancelText}) => {
   const [open, setOpen] = useState(false);
   const [loading,setLoading] = useState(false);
   return (
@@ -22,8 +23,12 @@ const CommonModal: React.FC<IProps> = ({ trigger, action, header,buttonText,btnC
       trigger={trigger}
     >
       <Modal.Header>{header}</Modal.Header>
+      <Modal.Description>
+        <input type="date" placeholder="Start date"/>
+        <input type="date" placeholder="End date"/>
+      </Modal.Description>
       <Modal.Actions>
-        <Button onClick={() => setOpen(false)}>No</Button>
+        <Button onClick={() => setOpen(false)}>{cancelText}</Button>
         <Button
           color={btnColor}
           loading={loading}

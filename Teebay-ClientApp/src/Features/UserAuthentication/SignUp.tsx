@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
@@ -67,4 +68,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default observer(SignUp)

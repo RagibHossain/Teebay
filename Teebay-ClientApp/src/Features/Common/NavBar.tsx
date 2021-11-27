@@ -28,9 +28,7 @@ const NavBar = () => {
                <Link to="/productdash">
                <span style={spanStyle}>Product Dash</span> 
                </Link>
-               <Link to="/browseproducts">
-               <span style={spanStyle}>Browse Products</span> 
-               </Link>
+               
                <Button onClick={() => logOut()}  content="Logout" color="red"/>
             </div>
        

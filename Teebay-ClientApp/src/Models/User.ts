@@ -14,7 +14,7 @@ export interface IUserLogin{
 
 }
 export interface IUser{
-    pk:number;
+    id:number;
     firstName : string;
     lastName : string;
     email : string;

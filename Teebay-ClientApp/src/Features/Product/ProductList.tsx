@@ -5,19 +5,16 @@ import { RootStoreContext } from '../../Stores/RootStore'
 import ItemCard from '../Common/ItemCard'
 interface IProps{
     products : IProduct[],
-    remove : boolean
+    remove : boolean,
+    link : string
 }
-const ProductList : React.FC<IProps> = ({products,remove}) => {
-    const store = useContext(RootStoreContext);
-    const {  getProducts } = store.productStore;
-    useEffect(() => {
-        if (products.length < 1) getProducts()
-    }, [getProducts,products])
+const ProductList : React.FC<IProps> = ({products,remove,link}) => {
+    // const store = useContext(RootStoreContext);
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
 
             {products.map((product) => (
-                <ItemCard remove={remove} key={product.pk} product={product} />
+                <ItemCard remove={remove} link={link} key={product.pk} product={product} />
             ))}
 
         </div>
