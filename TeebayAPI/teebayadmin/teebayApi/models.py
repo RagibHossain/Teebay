@@ -39,7 +39,7 @@ class BuyHistory(models.Model):
 class RentHistory(models.Model):
     renter = models.ForeignKey(User,on_delete=models.CASCADE,related_name="renthistory")
     product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name="renthistory")
-    rentstart = models.DateTimeField(auto_now_add=True)
-    rentend = models.DateTimeField()
+    rentstart = models.DateField()
+    rentend = models.DateField()
 
 

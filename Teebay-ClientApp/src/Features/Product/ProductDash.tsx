@@ -1,3 +1,4 @@
+import { observer } from 'mobx-react-lite';
 import React, { useContext } from 'react'
 import { RootStoreContext } from '../../Stores/RootStore';
 import ItemCard from '../Common/ItemCard'
@@ -7,17 +8,20 @@ import TabItem from '../Common/TabItem';
 
 const ProductDash = () => {
     const store = useContext(RootStoreContext);
-    const { myProducts, getProducts } = store.productStore;
+    const { boughtProducts } = store.productStore;
+
     return (
         <div>
             <div style={{ display: "flex", justifyContent: "center", height: "100px", width: "100%" }}>
+
                 <TabItem content="Bought" />
                 <TabItem content="Sold" />
                 <TabItem content="Borrowed" />
                 <TabItem content="Lent" />
+                
             </div>
-            {myProducts.map((product) => (
-                <ItemCard remove={false} key={product.pk} product={product} />
+            {boughtProducts.map((product) => (
+                <ItemCard link="update" remove={false} key={product.pk} product={product} />
             ))}
 
         </div>
@@ -25,4 +29,4 @@ const ProductDash = () => {
     )
 }
 
-export default ProductDash
+export default observer(ProductDash)

@@ -17,5 +17,16 @@ export interface IProductSearch{
     title : string;
     startPrice : number;
     endPrice : number;
-    categories : number
+    categories : number;
+    type : string;
+}
+export interface IBuyProduct{
+    buyer:number;
+    product:number;
+}
+export interface IRentProduct{
+    renter : number;
+    product : number;
+    rentstart: Date;
+    rentend : Date;
 }

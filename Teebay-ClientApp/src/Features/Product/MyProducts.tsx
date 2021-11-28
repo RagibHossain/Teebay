@@ -14,13 +14,13 @@ const MyProducts = () => {
     const store = useContext(RootStoreContext);
     const { myProducts, getProducts } = store.productStore;
 
-    // useEffect(()=>{
-    //   if(products.length < 1) getProducts();
-    // },[getProducts,products])
+    useEffect(()=>{
+      if(myProducts.length < 1) getProducts();
+    },[getProducts])
     return (
         <div>
             <Header textAlign="center" >My Products </Header>
-            <ProductList remove={true} products={myProducts} />
+            <ProductList link="update" remove={true} products={myProducts} />
             <div onClick={() => history.push("/addproduct")} style={{display:"flex",justifyContent:"center"}}>
                 <MyButton floating="right"  content="Add Product" />
             </div>

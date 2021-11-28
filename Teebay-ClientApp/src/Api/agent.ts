@@ -1,49 +1,37 @@
 import axios, { AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 import { createProductFormData } from "../Helper/formDataUtil";
-import { IProduct } from "../Models/Product";
-import { IUser } from "../Models/User";
+import { IBuyProduct, IProduct, IRentProduct } from "../Models/Product";
+import { IUser, IUserLogin } from "../Models/User";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
-// axios.defaults.baseURL = "https://localhost:5001/api";
 
-// axios.interceptors.request.use(
-//   (config) => {
-//     const token = localStorage.getItem("jwt");
-//     if (token) config.headers.Authorization = `Bearer ${token}`;
-//     return config;
-//   },
-//   (error) => {
-//     return Promise.reject(error);
-//   }
-// );
 
-// axios.interceptors.response.use(undefined, (error) => {
-//   if (error.message === "Network Error" && !error.response) {
-//     toast.error("Network error -- make sure API server is running");
-//     console.log(error);
-//   }
-//   const { status, data, config } = error.response;
-//   if (status === 404) {
-//     history.push("/notFoundeekdom");
-//   }
-//   if (
-//     status === 400 &&
-//     config.method === "get" &&
-//     data.errors.hasOwnProperty("id")
-//   ) {
-//     history.push("/notFound");
-//   }
-//   if (status === 500) {
-//     toast.error("Server Error Check the terminal for more info");
-//   }
-//   if (status === 401) {
-//     toast.error(data.errors.error);
-//   }
-//   if (status === 409) {
-//     console.log(data);
-//   }
-//   throw error.response;
-// });
+axios.interceptors.response.use(undefined, (error) => {
+  if (error.message === "Network Error" && !error.response) {
+    toast.error("Network error -- make sure API server is running");
+    console.log(error);
+  }
+
+  const { status, data, config } = error.response;
+
+  if (error.response.status === 404) {
+     toast.error(error.response.data)
+  }
+  else if (error.response.status === 400) {
+    toast.error(error.response.data)
+  }
+  else if (error.response.status === 500) {
+    toast.error(error.response.data)
+  }
+  else if (error.response.status === 401) {
+    toast.error(error.response.data)
+  }
+  else if (error.response.status === 417) {
+    toast.error(error.response.data)
+  }
+  else throw error.response;
+});
 
 const responseBody = (response: AxiosResponse) => response.data;
 
@@ -54,18 +42,6 @@ const requests = {
   del: (url: string) => axios.delete(url).then(responseBody),
 };
 
-
-
-
-
-// const User = {
-//   login: (body: IUserLogin) => requests.post("/user/login", body),
-//   loginWithOtp: (body: IUserLoginWithOtp): Promise<IUser> =>
-//     requests.post("/user/loginWithOtp", body),
-//   currentUser: (): Promise<IUser> => requests.get("/user"),
-//   changePassword: (body: IChangePassword) =>
-//     requests.post("/user/changePassword", body),
-// };
 const form = {
   productPostForm: (url: string, data: IProduct) => {
     const formData = createProductFormData(data);
@@ -91,12 +67,15 @@ const Products = {
   productDetails : (pk : string):Promise<IProduct> => requests.get(`${pk}`),
   addProduct : (product : IProduct) => form.productPostForm("create/",product),
   updateProduct : (product : IProduct) => form.productPutForm(`update/${product.pk}/`,product),
-  deleteProduct : (pk : number) => requests.del(`delete/${pk}/`)
+  deleteProduct : (pk : number) => requests.del(`delete/${pk}/`),
+  buyProduct : (data : IBuyProduct) => requests.post("buy/",data),
+  rentProduct : (data : IRentProduct) => requests.post("rent/",data)
+
 };
 
 const User = {
   userList: (): Promise<IUser[]> => requests.get("users/"),
-  getUser: (): Promise<IUser[]> => requests.get("users/"),
+  login: (data : IUserLogin): Promise<IUser> => requests.post("login/",data),
   register: (body : IUser): Promise<IUser[]> => requests.post("register/",body)
 }
 

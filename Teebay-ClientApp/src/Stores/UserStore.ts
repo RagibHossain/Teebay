@@ -25,26 +25,18 @@ export default class UserStore {
     }
 
     @action signIn = async (user: any) => {
-        const users = await agent.User.userList();
 
-        runInAction(() => {
-            const currentuser = users.filter(x => x.email == user.email)
+        try{
+            const inUser = await agent.User.login(user);
+            this.currentUser = inUser
+            this.saveUser()
+            this.setLoggedIn(true)
+            // history.push("/products")
+          
+        }catch(e : any){
+            console.log(e.response)
+        }
 
-            if (currentuser.length > 0) {
-                if (currentuser[0].password == user.password) {
-                    console.log(currentuser);
-                    this.currentUser = currentuser[0];
-                    this.saveUser();
-                    this.setLoggedIn(true);
-
-                    //   toast.success("Success fully logged in")
-                }
-                else {
-                    console.log("fak");
-                     this.logout();
-                }
-            }
-        })
 
     }
     @action setLoggedIn = (status: boolean) => {
@@ -53,18 +45,20 @@ export default class UserStore {
     saveUser = () => {
         localStorage.setItem("user", JSON.stringify(this.currentUser));
         setTimeout(() => {
-            this.emptyCart();
+            this.emptyUser();
         }, 300000); //300000
     };
-    emptyCart = () => {
+    emptyUser = () => {
         this.currentUser = null;
 
         localStorage.removeItem("user");
     };
     @action logout = () => {
-        this.emptyCart();
+        this.rootStore.commonStore.setGlobalLoading(true);
+        this.emptyUser();
         this.currentUser = null;
         this.setLoggedIn(false)
+        this.rootStore.commonStore.setGlobalLoading(false);
     }
 }
 

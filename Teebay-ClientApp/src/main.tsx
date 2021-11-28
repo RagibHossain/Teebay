@@ -5,10 +5,10 @@ import 'semantic-ui-css/semantic.min.css'
 import App from './App'
 import { BrowserRouter, Router } from 'react-router-dom'
 import {createHashHistory} from 'history'
-export const history = createHashHistory();
+
 ReactDOM.render(
-  <Router history={history} >
+  <BrowserRouter >
    <App />
-  </Router>,
+  </BrowserRouter>,
   document.getElementById('root')
 )

@@ -1,6 +1,6 @@
 
 from django.urls import include,path
-from .views import CreateUser, DeleteProduct, GetUser,GetAllUsers,BuyHistory, ProductCreate, ProductList, UpdateProduct,ProductDetails,GetBuyHistory
+from .views import CreateUser, DeleteProduct, LoginUser,GetAllUsers,RentHistory,BuyHistory, ProductCreate, ProductList, UpdateProduct,ProductDetails,GetBuyHistory,GetRentHistory
 urlpatterns = [
 
     path('create/',ProductCreate.as_view(),name='upload-product'),
@@ -11,7 +11,9 @@ urlpatterns = [
     path('api-auth/',include('rest_framework.urls')),
     path('buy/',BuyHistory.as_view()),
     path('buyhistory/',GetBuyHistory.as_view()),
-    path('login/<int:pk>',GetUser.as_view()),
+    path('rent/',RentHistory.as_view()),
+    path('renthistory/',GetRentHistory.as_view()),
+    path('login/',LoginUser.as_view()),
     path('users/',GetAllUsers.as_view()),
     path('register/',CreateUser.as_view()),
 ]

@@ -9,3 +9,5 @@ class AuthorAdmin(admin.ModelAdmin):
 
     admin.site.register(models.Category)
     admin.site.register(models.BuyHistory)
+    admin.site.register(models.RentHistory)
+    admin.site.register(models.User)

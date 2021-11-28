@@ -1,26 +1,16 @@
 import { observer } from 'mobx-react-lite'
 import React, { useContext, useEffect, useState } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import {  useForm } from 'react-hook-form'
 import { RouteComponentProps, useHistory } from 'react-router'
-import { match } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { Button, Dropdown, DropdownProps, Select } from 'semantic-ui-react'
-import { history } from '../../main'
-import { ICategory, IProduct } from '../../Models/Product'
+import {  Dropdown, DropdownProps, Select } from 'semantic-ui-react'
+
+import {  IProduct } from '../../Models/Product'
 import { RootStoreContext } from '../../Stores/RootStore'
 import MyButton from '../Common/MyButton'
 import MyHeader from '../Common/MyHeader'
-import MyInput from '../Common/MyInput'
+
 import "./product.css"
-import ProductDetails from './ProductDetails'
-
-// ELECTRONICS
-// ○ FURNITURE
-// ○ HOME APPLIANCES
-// ○ SPORTING GOODS
-
-// ○ OUTDOOR
-// ○ TOYS
 
 
 const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) =>  {
@@ -70,7 +60,7 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
     ];
     const inputStyle = { height: "40px", width: "100%", margin: "10px 0px 10px 0px", borderRadius: "2%", padding: "5px" }
 
-    const { register, control, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const store = useContext(RootStoreContext);
     const {addProduct,updateProduct,getProductDetails,emptyCurrentProduct,currentProduct} = store.productStore;
     const history = useHistory();
@@ -87,8 +77,7 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
         category:  product ? product.category : []
     }
     const onSubmitHandler = () => {
-        // setSubmitting(true);
-        // console.log(product);
+    
         if (!currentProduct) addProduct(product!).then(()=>{
 
             history.push("/products")
@@ -163,8 +152,7 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
                     {errors.description && <p className="errorStyle">{errors.description?.message}</p>}
                 </div>
                 <div style={{ display: "flex" }}>
-                    {/* <MyInput type="text" labelText="Price" height="40px" widthPercentage="100%" />
-                    <MyInput type="text" labelText="Rent" height="40px" widthPercentage="80%" /> */}
+
                     <div className="input">
                         <input
                             {...register("price", { required: "Price is Required" })}
@@ -187,14 +175,6 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
                         />
                         {errors.rentPrice && <p className="errorStyle">{errors.rentPrice?.message}</p>}
                     </div>
-
-                    {/* <Dropdown
-                     selection 
-                     {...register("category",{required:"selet at least one option"})}
-                     placeholder="select option" 
-                     style={{margin:"50px 0px",color:"black",width:"26%"}}
-                     options={rateType} /> */}
-
 
                 </div>
 
