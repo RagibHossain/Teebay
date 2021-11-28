@@ -2,7 +2,6 @@ import { observer } from 'mobx-react-lite';
 import React, { useContext, useEffect, useState } from 'react'
 import { RootStoreContext } from '../../Stores/RootStore';
 import ItemCard from '../Common/ItemCard'
-import Tab from '../Common/Tab'
 import TabItem from '../Common/TabItem';
 import NoProduct from './NoProduct';
 

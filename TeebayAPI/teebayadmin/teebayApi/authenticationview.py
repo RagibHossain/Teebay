@@ -15,7 +15,7 @@ class LoginView(GenericAPIView):
         try:
             user = User.objects.get(email= request.data["email"])
         except:
-            return Response("No user exists with this username",status=status.HTTP_404_NOT_FOUND) 
+            return Response("No user exists with this Email",status=status.HTTP_404_NOT_FOUND) 
         
         if user is not None:
             if(user.password == request.data["password"]):

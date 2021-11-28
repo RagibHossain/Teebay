@@ -12,8 +12,8 @@ import MyButton from '../Common/MyButton'
 import "./userAuth.css"
 const Signin = () => {
     const store = useContext(RootStoreContext);
-    const history = useHistory();
-    const { signIn, loggedIn, currentUser } = store.userStore;
+
+    const { signIn, loggedIn } = store.userStore;
     const { register, handleSubmit, formState: { errors } } = useForm<IUserLogin>();
     const onLogin = (user: IUserLogin) => {
         signIn(user);
