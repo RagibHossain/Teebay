@@ -1,6 +1,6 @@
 # Teebay
-TeebayClientApp is the frontend of the application . 
-TeebayAPI is the backend of the application .
+TeebayClientApp is the frontend of the application .(Technologies used - React,Typescript,Mobx,React Router,Semantic UI,React Hook Form) 
+TeebayAPI is the backend of the application . (Technologies used - Django,Django RestFramework)
 
 to run the front end  application clone the project .
 
