@@ -16,17 +16,12 @@ const CommonModal: React.FC<IProps> = ({ trigger, action, header,buttonText,btnC
   const [loading,setLoading] = useState(false);
   return (
     <Modal
-      closeIcon
       onClose={() => setOpen(false)}
       onOpen={() => setOpen(true)}
       open={open}
       trigger={trigger}
     >
       <Modal.Header>{header}</Modal.Header>
-      <Modal.Description>
-        <input type="date" placeholder="Start date"/>
-        <input type="date" placeholder="End date"/>
-      </Modal.Description>
       <Modal.Actions>
         <Button onClick={() => setOpen(false)}>{cancelText}</Button>
         <Button

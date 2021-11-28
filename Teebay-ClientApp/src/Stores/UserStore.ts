@@ -1,6 +1,6 @@
 import { action, makeObservable, observable, runInAction } from "mobx";
 import agent from "../Api/agent";
-import { IUser } from "../Models/User";
+import { IUser, IUserRegister } from "../Models/User";
 import { RootStore } from "./RootStore";
 
 export default class UserStore {
@@ -21,23 +21,40 @@ export default class UserStore {
             this.currentUser = JSON.parse(user);
             this.setLoggedIn(true);
         }
-
     }
-
+    @action register = async (user : IUserRegister,toast : any,history : any) => {
+        try{
+            await agent.User.register(user);
+            toast.success("User successfully registered")
+            history.push("/")
+        }catch(e : any)
+        {
+            console.log(e.response)
+        }
+    }
+    @action updateProfile = async (user : IUser,toast: any) =>
+    {
+        try{
+            console.log(user);
+            user.id = this.currentUser!.id;
+            await agent.User.updateProfile(user)
+            this.currentUser = user;
+            toast.success("Profile Updated Successfully")
+        }catch(e : any){
+            console.log(e);
+        }
+    }
     @action signIn = async (user: any) => {
 
         try{
             const inUser = await agent.User.login(user);
             this.currentUser = inUser
+            console.log(this.currentUser)
             this.saveUser()
-            this.setLoggedIn(true)
-            // history.push("/products")
-          
+            this.setLoggedIn(true)   
         }catch(e : any){
             console.log(e.response)
         }
-
-
     }
     @action setLoggedIn = (status: boolean) => {
         this.loggedIn = status;
@@ -46,7 +63,7 @@ export default class UserStore {
         localStorage.setItem("user", JSON.stringify(this.currentUser));
         setTimeout(() => {
             this.emptyUser();
-        }, 300000); //300000
+        }, 3000000); //300000
     };
     emptyUser = () => {
         this.currentUser = null;
@@ -56,26 +73,10 @@ export default class UserStore {
     @action logout = () => {
         this.rootStore.commonStore.setGlobalLoading(true);
         this.emptyUser();
-        this.currentUser = null;
+        this.rootStore.productStore.clearAll();
         this.setLoggedIn(false)
         this.rootStore.commonStore.setGlobalLoading(false);
     }
 }
 
 
-// @action login = async (user : IUserLogin) => {
-
-//     const users = await agent.User.userList();
-
-//     const currentuser = users.filter(x => x.email == user.email)
-
-//     if(currentuser.length >0) {
-//       if(currentuser[0].password == user.password) 
-//       {
-//           console.log(currentuser);
-//           toast.success("Success fully logged in")
-//       }
-//       else toast.error("Credentials Incorrect")
-//     }   
-
-// }

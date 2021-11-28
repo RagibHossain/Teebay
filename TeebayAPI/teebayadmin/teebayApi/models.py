@@ -6,6 +6,8 @@ from django.db.models.fields.related import RelatedField
 class User(models.Model):
     firstname = models.CharField(max_length=100)
     lastname = models.CharField(max_length=100)
+    address = models.CharField(max_length=100,null=True)
+    phonenumber = models.CharField(max_length=15,null=True)
     email = models.EmailField()
     password = models.CharField(max_length=100)
 

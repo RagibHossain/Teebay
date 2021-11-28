@@ -5,31 +5,35 @@ import { RootStoreContext } from '../../Stores/RootStore'
 
 const NavBar = () => {
     const spanStyle = {
-        color:"wheat"
+        color:"white",
+        fontWeight:"bolder"
     }
     const history = useHistory();
     const store = useContext(RootStoreContext);
-    const {logout} =store.userStore;
+    const {logout,currentUser} =store.userStore;
     const logOut = () => {
         logout();
-        setTimeout(() => {
-          history.push("/")
-        },1000)
+        history.push("/")
+       
     }
     return (
-        <div style={{width:"100%",padding:"20px",position:"fixed",top:"0",backgroundColor:"grey"}}>
+        <div style={{width:"100%",padding:"20px",position:"fixed",top:"0",backgroundColor:"#9EADBA"}}>
             <div style={{display:"flex",justifyContent:"space-evenly"}}>
                <Link to="/browseproducts">
-               <span style={spanStyle}>Browse Products</span> 
+               <span style={spanStyle}>BROWSE PRODUCTS</span> 
                </Link>
                <Link to="/products">
-               <span style={spanStyle}>My Products</span> 
+               <span style={spanStyle}>MY PRODUCTS</span> 
                </Link>
                <Link to="/productdash">
-               <span style={spanStyle}>Product Dash</span> 
+               <span style={spanStyle}>PRODUCT DASH</span> 
+               </Link>
+               <Link to="/updateprofile">
+               <span style={spanStyle}>
+               <i className="user icon"></i> {currentUser?.firstname.toUpperCase()+" "+currentUser?.lastname.toUpperCase()}</span> 
                </Link>
                
-               <Button onClick={() => logOut()}  content="Logout" color="red"/>
+               <Button onClick={() => logOut()}  content="Logout" color="grey"/>
             </div>
        
         

@@ -1,8 +1,10 @@
+import { observer } from 'mobx-react-lite';
 import React, { useState } from 'react'
 interface IProps{
     content : string;
+    setState : React.Dispatch<React.SetStateAction<string>>;
 }
-const TabItem : React.FC<IProps> = ({content}) => {
+const TabItem : React.FC<IProps> = ({content,setState}) => {
     const [hovered,setHovered] = useState(false);
     const normalStyle ={
         height:"30px",
@@ -21,10 +23,10 @@ const TabItem : React.FC<IProps> = ({content}) => {
         justifyContent:"center"
     }
     return (
-        <div  onMouseOut={() => setHovered(!hovered)} onMouseOver={() => setHovered(!hovered)} style={hovered ? hoverStyle : normalStyle}>
+        <div onClick={() => setState(content)}  onMouseOut={() => setHovered(!hovered)} onMouseOver={() => setHovered(!hovered)} style={hovered ? hoverStyle : normalStyle}>
             <strong>{content}</strong>
         </div>
     )
 }
 
-export default TabItem
+export default observer(TabItem)

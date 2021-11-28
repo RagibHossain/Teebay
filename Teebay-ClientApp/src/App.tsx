@@ -15,6 +15,7 @@ import { RootStoreContext } from './Stores/RootStore'
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';
 import Loading from './Features/Common/Loading'
+import UpdateProfile from './Features/UserAuthentication/UpdateProfile'
 function App() {
 
   const rootStore = useContext(RootStoreContext);
@@ -48,7 +49,7 @@ function App() {
                     <Route exact path="/productdash" component={ProductDash} />
                     <Route exact path="/browseproducts" component={BrowseProducts} />
                     <Route exact path="/addproduct" component={ProductForm} />
-               
+                    <Route exact path="/updateprofile" component={UpdateProfile} />
                     <Route exact path="/signup" component={SignUp} />
                   </Switch>
                 </Container>

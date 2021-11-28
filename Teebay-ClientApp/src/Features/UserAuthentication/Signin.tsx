@@ -16,12 +16,11 @@ const Signin = () => {
     const { signIn, loggedIn, currentUser } = store.userStore;
     const { register, handleSubmit, formState: { errors } } = useForm<IUserLogin>();
     const onLogin = (user: IUserLogin) => {
-        console.log(user);
         signIn(user);
 
     }
    
-    if(loggedIn) return ( <Redirect to='/products' />)
+    if(loggedIn) return ( <Redirect to='/updateprofile' />)
     const inputStyle = { height: "40px", width: "100%", margin: "10px 0px 10px 0px", borderRadius: "2%", padding: "5px" }
     
     return (
@@ -38,7 +37,7 @@ const Signin = () => {
                     </div>
 
                     <div className="input">
-                        <input {...register("password", { required: "Password  is Required" })} type="text" placeholder="Password" style={inputStyle} />
+                        <input {...register("password", { required: "Password  is Required" })} type="password" placeholder="Password" style={inputStyle} />
                         {errors.password && <p className="errorStyle">{errors.password?.message}</p>}
                     </div>
                     <MyButton content="Login" />

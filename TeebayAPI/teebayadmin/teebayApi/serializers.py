@@ -7,7 +7,7 @@ from teebayApi.models import Product,Category,RentHistory,BuyHistory,User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields=["pk","firstname","lastname","email","password"]
+        fields=["pk","firstname","lastname","email","password","phonenumber","address"]
 
 class LoginSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,24 +22,27 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = ['name']
+class MyProductFetchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ['uploadedby']
 class ProductFetchSerializer(serializers.ModelSerializer):
-    # category = serializers.StringRelatedField(many=True)
+    
     class Meta:
         model = Product
         fields = ['pk','title','category','description','rentPrice','price','status','dateposted','uploadedby']
 class ProductSerializer(serializers.ModelSerializer):
-    # category = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = Product
         fields = ['pk','title','category','description','rentPrice','price','status','dateposted','uploadedby']
 
 
 class BuyHistorySerializer(serializers.ModelSerializer):
-    buyer = UserNameSerializer(read_only=True)
     product = ProductSerializer(read_only=True)
     class Meta:
         model=BuyHistory
-        fields=["pk","buyer","product","purchasedate"]
+        fields=["pk","product","purchasedate"]
 
 class BuySerializer(serializers.ModelSerializer):
    
@@ -47,16 +50,23 @@ class BuySerializer(serializers.ModelSerializer):
         model = BuyHistory
         fields="__all__"
 
+class FetchBuyHistorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BuyHistory
+        fields =["buyer"]
+
 class RentHistorySerializer(serializers.ModelSerializer):
-    renter = UserNameSerializer(read_only=True)
     product = ProductSerializer(read_only=True)
     class Meta:
         model=RentHistory
-        fields=["pk","renter","product","rentstart","rentend"]
+        fields=["pk","product","rentstart","rentend"]
 
 class RentSerializer(serializers.ModelSerializer):
    
     class Meta:
         model = RentHistory
         fields="__all__"
-
+class FetchRentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RentHistory
+        fields =["renter"]
