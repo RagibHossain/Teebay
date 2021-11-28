@@ -110,13 +110,7 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
         }
       }, [getProductDetails, match.params.id,emptyCurrentProduct]);
 
-    const onPost = () => {
-        addProduct(product!).then(()=>{
 
-            history.push("/products")
-            toast.success("Product Added Successfully")
-        });
-    }
 
     const onSelectItem = (item: React.SyntheticEvent<HTMLElement, Event>,data : any) => {
      

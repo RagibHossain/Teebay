@@ -1,6 +1,13 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from django.db.models.fields.related import RelatedField
 
+
+class User(models.Model):
+    firstname = models.CharField(max_length=100)
+    lastname = models.CharField(max_length=100)
+    email = models.EmailField()
+    password = models.CharField(max_length=100)
 
 class Category(models.Model):
     name = models.CharField(max_length=60) 
@@ -25,13 +32,13 @@ class Product(models.Model):
     category = models.ManyToManyField(Category)
 
 class BuyHistory(models.Model):
-    buyer = models.ForeignKey(User,on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    buyer = models.ForeignKey(User,on_delete=models.CASCADE,related_name="buyhistory")
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name="buyhistory")
     purchasedate=models.DateField(auto_now_add=True)
 
 class RentHistory(models.Model):
-    renter = models.ForeignKey(User,on_delete=models.CASCADE)
-    product = models.ForeignKey(Product,on_delete=models.CASCADE)
+    renter = models.ForeignKey(User,on_delete=models.CASCADE,related_name="renthistory")
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name="renthistory")
     rentstart = models.DateTimeField(auto_now_add=True)
     rentend = models.DateTimeField()
 

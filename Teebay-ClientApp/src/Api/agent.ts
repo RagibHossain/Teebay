@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 import { createProductFormData } from "../Helper/formDataUtil";
 import { IProduct } from "../Models/Product";
+import { IUser } from "../Models/User";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 // axios.defaults.baseURL = "https://localhost:5001/api";
@@ -93,6 +94,12 @@ const Products = {
   deleteProduct : (pk : number) => requests.del(`delete/${pk}/`)
 };
 
-const agent = { Products };
+const User = {
+  userList: (): Promise<IUser[]> => requests.get("users/"),
+  getUser: (): Promise<IUser[]> => requests.get("users/"),
+  register: (body : IUser): Promise<IUser[]> => requests.post("register/",body)
+}
+
+const agent = { Products,User };
 
 export default agent;

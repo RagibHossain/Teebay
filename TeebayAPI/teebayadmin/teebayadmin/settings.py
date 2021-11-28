@@ -75,7 +75,7 @@ TEMPLATES = [
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':[
-        'rest_framework.permissions.IsAuthenticatedOrReadOnly'
+        'rest_framework.permissions.AllowAny'
     ]
 }
 
@@ -83,6 +83,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
 
+# AUTH_USER_MODEL = "users.NewUser"
 
 
 CORS_ALLOW_HEADERS = default_headers + (

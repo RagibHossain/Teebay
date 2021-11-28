@@ -13,3 +13,9 @@ export interface IProduct{
 export interface ICategory{
     name : string;
 }
+export interface IProductSearch{
+    title : string;
+    startPrice : number;
+    endPrice : number;
+    categories : number
+}

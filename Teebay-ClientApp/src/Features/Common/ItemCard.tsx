@@ -1,3 +1,4 @@
+
 import { observer } from 'mobx-react-lite'
 import React, { useContext } from 'react'
 import { useHistory } from 'react-router'
@@ -6,9 +7,10 @@ import { IProduct } from '../../Models/Product'
 import { RootStoreContext } from '../../Stores/RootStore'
 import CommonModal from './CommonModal'
 interface IProps {
-    product: IProduct
+    product: IProduct,
+    remove : boolean
 }
-const ItemCard: React.FC<IProps> = ({ product }) => {
+const ItemCard: React.FC<IProps> = ({ product,remove}) => {
     const store = useContext(RootStoreContext)
     const { deleteProduct,setCurrentProduct } = store.productStore;
     const history = useHistory();
@@ -28,17 +30,20 @@ const ItemCard: React.FC<IProps> = ({ product }) => {
 
             <p> {product.description}</p>
             {/* <button onClick={() => deleteProduct(product.pk!)}>Delete</button> */}
-            <CommonModal
-                header={`Are you sure you want to delete this product}?`}
-                trigger={
-                    <button className="action-button" >
-                        <Icon color="red" name="delete"></Icon>
-                    </button>
-                }
-                btnColor="red"
-                buttonText="Yes, Delete permanently"
-                action={() => deleteProduct(product.pk!)}
-            />
+          {remove &&
+           <CommonModal
+           header={`Are you sure you want to delete this product}?`}
+           trigger={
+               <button className="action-button" >
+                   <Icon color="red" name="delete"></Icon>
+               </button>
+           }
+           btnColor="red"
+           buttonText="Yes, Delete permanently"
+           action={() => deleteProduct(product.pk!)}
+       />
+          }
+           
         </div>
     )
 }

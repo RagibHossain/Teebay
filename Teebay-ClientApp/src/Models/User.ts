@@ -13,3 +13,10 @@ export interface IUserLogin{
     password: string;
 
 }
+export interface IUser{
+    pk:number;
+    firstName : string;
+    lastName : string;
+    email : string;
+    password: string;
+}

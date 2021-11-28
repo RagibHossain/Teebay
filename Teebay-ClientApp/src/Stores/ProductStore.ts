@@ -14,18 +14,24 @@ export default class ProductStore {
     }
 
     @observable products: IProduct[] = []
+    @observable myProducts : IProduct[] = []
     @observable soldProducts: IProduct[] = []
     @observable lentProducts: IProduct[] = []
     @observable borrowedProducts: IProduct[] = []
     @observable currentProduct : IProduct | null= null;
+    @observable productTobeBought : IProduct[] = [] 
+    @observable searchResult : IProduct[] = []
 
     @action getProducts = async () => {
         const products = await agent.Products.productList();
 
         runInAction(() => {
             this.products = products;
-            this.soldProducts = products.filter(x => x.status == "sold")
-            this.borrowedProducts = products.filter(x => x.status == "rented")
+            
+            this.myProducts = products.filter(x => x.uploadedby == this.rootstore.userStore.currentUser?.pk)
+            this.productTobeBought = products.filter( x => (x.status == "unsold" && x.uploadedby!==this.rootstore.userStore.currentUser?.pk) )
+            this.soldProducts = this.myProducts.filter(x => x.status == "sold")
+            this.borrowedProducts = this.myProducts.filter(x => x.status == "rented")
         })
 
 
@@ -48,7 +54,7 @@ export default class ProductStore {
     }
     @action addProduct = async (product: IProduct) => {
         console.log(product)
-        product.uploadedby = 1;
+        product.uploadedby = this.rootstore.userStore.currentUser?.pk!;
         product.status = "unsold";
        await agent.Products.addProduct(product)
        runInAction(() => {
@@ -68,7 +74,6 @@ export default class ProductStore {
     }
     @action updateProduct = async (product : IProduct) => {
         console.log(product)
-        product.uploadedby = 1;
         product.status = "unsold";
        await agent.Products.updateProduct(product);
        console.log(product)
@@ -79,5 +84,8 @@ export default class ProductStore {
     } 
     @action emptyCurrentProduct = () => {
         this.currentProduct = null;
+    }
+    @action search = () => {
+        
     }
 }
