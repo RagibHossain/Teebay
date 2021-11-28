@@ -9,7 +9,7 @@ interface IProps{
     link : string
 }
 const ProductList : React.FC<IProps> = ({products,remove,link}) => {
-    // const store = useContext(RootStoreContext);
+   
     return (
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
 

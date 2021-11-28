@@ -6,7 +6,6 @@ import { Select } from 'semantic-ui-react'
 import { IProductSearch } from '../../Models/Product'
 import { RootStoreContext } from '../../Stores/RootStore'
 import MyButton from '../Common/MyButton'
-import MyInput from '../Common/MyInput'
 
 const ProductSearchForm = () => {
     const fieldStyle = {
@@ -46,13 +45,11 @@ const ProductSearchForm = () => {
         }
     ];
     const { handleSubmit, formState: { errors } } = useForm();
-    const history = useHistory();
     const [param, setParam] = useState<IProductSearch>();
     const store = useContext(RootStoreContext);
     const { searchProducts } = store.productStore;
     const inputStyle = { height: "40px", width: "90%", margin: "30px 10px 20px 10px", borderRadius: "2%", padding: "5px" }
     const search = () => {
-        console.log(param)
         searchProducts(param!)
     }
     const handleChange = (item: React.ChangeEvent<HTMLInputElement>) => {
