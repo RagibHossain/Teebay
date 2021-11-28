@@ -7,7 +7,9 @@ to run the front end  application clone the project .
 cd into TeebayClientApp . 
 Run the following commands in the command shell .
 1- npm i  
-2- npm
+2- npm run dev
+
+this will start the client app server at visit http://localhost:3000/
 
 to run the backend after cloning 
 install django,django-restframework,psycopg2 packages in TeebayAPI folder.
