@@ -20,13 +20,8 @@ export interface IProductSearch{
     categories : number;
     type : string;
 }
-export interface IBuyProduct{
-    buyer:number;
-    product:number;
+export interface IProductRequest{
+    uploadedby : number;
 }
-export interface IRentProduct{
-    renter : number;
-    product : number;
-    rentstart: Date;
-    rentend : Date;
-}
+
+

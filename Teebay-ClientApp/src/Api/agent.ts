@@ -1,8 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { toast } from "react-toastify";
 import { createProductFormData } from "../Helper/formDataUtil";
-import { IBuyProduct, IProduct, IRentProduct } from "../Models/Product";
-import { IUser, IUserLogin } from "../Models/User";
+import { IBuyHistory, IBuyHistoryRequest, IBuyProduct } from "../Models/Buy";
+import { IProduct,IProductRequest } from "../Models/Product";
+import { IRentHistory, IRentHistoryRequest, IRentProduct } from "../Models/Rent";
+import { IUser, IUserLogin, IUserRegister } from "../Models/User";
 
 axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
 
@@ -64,19 +66,24 @@ const form = {
 
 const Products = {
   productList: (): Promise<IProduct[]> => requests.get("/"),
+  myProducts : (data : IProductRequest) : Promise<IProduct[]> => requests.post("myproducts/",data),
   productDetails : (pk : string):Promise<IProduct> => requests.get(`${pk}`),
   addProduct : (product : IProduct) => form.productPostForm("create/",product),
   updateProduct : (product : IProduct) => form.productPutForm(`update/${product.pk}/`,product),
   deleteProduct : (pk : number) => requests.del(`delete/${pk}/`),
   buyProduct : (data : IBuyProduct) => requests.post("buy/",data),
-  rentProduct : (data : IRentProduct) => requests.post("rent/",data)
+  rentProduct : (data : IRentProduct) => requests.post("rent/",data),
+  mybuyhistory : (buyer : IBuyHistoryRequest)  : Promise<IBuyHistory[]> => requests.post("buyhistory/",buyer),
+  myrenthistory : (renter : IRentHistoryRequest) : Promise<IRentHistory[]> => requests.post("renthistory/",renter),
+
 
 };
 
 const User = {
   userList: (): Promise<IUser[]> => requests.get("users/"),
   login: (data : IUserLogin): Promise<IUser> => requests.post("login/",data),
-  register: (body : IUser): Promise<IUser[]> => requests.post("register/",body)
+  register: (body : IUserRegister) => requests.post("register/",body),
+  updateProfile: (body : IUser) => requests.put(`updateprofile/${body.id}`,body)
 }
 
 const agent = { Products,User };

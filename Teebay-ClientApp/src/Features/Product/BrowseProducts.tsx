@@ -12,7 +12,7 @@ const BrowseProducts = () => {
     const [searched,setSearched] = useState(false);
     return (
         <div style={{ display: "flex" }}>
-            <div style={{ height: "800px", padding: "30px", width: "30%", border: "1px solid grey" }}>
+            <div style={{ height: "800px", padding: "30px", width: "30%", border: "1px solid #C3CFD9" }}>
                 
             <ProductSearchForm  />
             </div>

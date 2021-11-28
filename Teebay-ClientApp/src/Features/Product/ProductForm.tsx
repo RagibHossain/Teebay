@@ -118,7 +118,7 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
                 {/* <MyInput type="text" labelText="Title" height="40px" widthPercentage="100%" /> */}
                 <div className="input">
                     <input
-                        {...register("title", { required: "First Name is Required" })}
+                        {...register("title", { required: "Title is Required" })}
                         type="text"
                         placeholder="title"
                         style={inputStyle}
@@ -143,7 +143,7 @@ const ProductForm : React.FC<RouteComponentProps<{ id: string }>> = ({ match }) 
                 {/* <MyInput type="textArea" labelText="Description" height="140px" widthPercentage="100%" /> */}
                 <div className="input">
                     <textarea
-                        {...register("description", { required: "First Name is Required" })}
+                        {...register("description", { required: "Description is Required" })}
                           placeholder="Description"
                           style={{height:"100px"}}
                           defaultValue={initializeFormData.description }
