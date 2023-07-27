@@ -1,8 +1,8 @@
 # Teebay
-TeebayClientApp is the frontend of the application .(Technologies used - React,Typescript,Mobx,React Router,Semantic UI,React Hook Form) 
-TeebayAPI is the backend of the application . (Technologies used - Django,Django RestFramework)
 
-to run the front end  application clone the project .
+
+
+**to run the client clone the project .**
 
 cd into TeebayClientApp . 
 Run the following commands in the command shell .
@@ -11,9 +11,10 @@ Run the following commands in the command shell .
 
 this will start the client app server at visit http://localhost:3000/
 
-to run the backend after cloning 
-install django,django-restframework,psycopg2 packages in TeebayAPI folder.
-setup a postgres database . name the database (teebay) and password 1611049 and username = postgres.
+**to run the backend after cloning **
+
+install django, django-restframework, psycopg2 packages in TeebayAPI folder.
+setup a postgres database, name the database (teebay) and password 1611049 and username = postgres.
 if you want to create a database with different configuration then update the configuration info in settings.py file of teebayAPI/teebayAdmin/ project . 
 
 After setting the database . Cd into teebayAdmin project and run the following commands -
