@@ -6,8 +6,7 @@ import { IProduct,IProductRequest } from "../Models/Product";
 import { IRentHistory, IRentHistoryRequest, IRentProduct } from "../Models/Rent";
 import { IUser, IUserLogin, IUserRegister } from "../Models/User";
 
-axios.defaults.baseURL = "http://127.0.0.1:8000/api/";
-
+axios.defaults.baseURL = "http://127.0.0.1:3000/";
 
 axios.interceptors.response.use(undefined, (error) => {
   if (error.message === "Network Error" && !error.response) {
@@ -75,13 +74,11 @@ const Products = {
   rentProduct : (data : IRentProduct) => requests.post("rent/",data),
   mybuyhistory : (buyer : IBuyHistoryRequest)  : Promise<IBuyHistory[]> => requests.post("buyhistory/",buyer),
   myrenthistory : (renter : IRentHistoryRequest) : Promise<IRentHistory[]> => requests.post("renthistory/",renter),
-
-
 };
 
 const User = {
   userList: (): Promise<IUser[]> => requests.get("users/"),
-  login: (data : IUserLogin): Promise<IUser> => requests.post("login/",data),
+  login: (data : IUserLogin): Promise<IUser> => requests.post("user/login/",data),
   register: (body : IUserRegister) => requests.post("register/",body),
   updateProfile: (body : IUser) => requests.put(`updateprofile/${body.id}`,body)
 }
