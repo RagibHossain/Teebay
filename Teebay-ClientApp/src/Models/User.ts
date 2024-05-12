@@ -7,11 +7,11 @@ export interface IUserLogin {
 }
 export interface IUser {
     id: number;
-    firstname: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     address: string;
     email: string;
-    phonenumber: string;
+    phoneNumber: string;
     password: string;
 }
 export interface IUserRegister extends IUser {

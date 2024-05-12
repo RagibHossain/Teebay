@@ -6,14 +6,21 @@ interface IProps {
   trigger: React.ReactNode;
   action: Function;
   header: string;
-  buttonText : string;
-  cancelText : string;
-  btnColor : SemanticCOLORS;
+  buttonText: string;
+  cancelText: string;
+  btnColor: SemanticCOLORS;
 }
 
-const CommonModal: React.FC<IProps> = ({ trigger, action, header,buttonText,btnColor,cancelText}) => {
+const CommonModal: React.FC<IProps> = ({
+  trigger,
+  action,
+  header,
+  buttonText,
+  btnColor,
+  cancelText,
+}) => {
   const [open, setOpen] = useState(false);
-  const [loading,setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   return (
     <Modal
       onClose={() => setOpen(false)}
@@ -34,7 +41,7 @@ const CommonModal: React.FC<IProps> = ({ trigger, action, header,buttonText,btnC
             setOpen(false);
           }}
         >
-         {buttonText}
+          {buttonText}
         </Button>
       </Modal.Actions>
     </Modal>
